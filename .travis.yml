@@ -1,9 +1,20 @@
 language: groovy
 
+arch:
+  - amd64
+  - arm64
+
 jdk:
   - oraclejdk8
 
 dist: precise
+
+install:
+  - if [ "${TRAVIS_CPU_ARCH}" == "arm64" ]; then
+     sudo apt-get install openjdk-8-jdk;
+     export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-arm64;
+     export PATH=$JAVA_HOME/bin:$PATH;
+    fi
 
 script:
   - "./gradlew check"
